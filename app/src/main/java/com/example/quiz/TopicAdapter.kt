@@ -8,12 +8,10 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import java.lang.StringBuilder
-import kotlin.math.roundToInt
 
 
-class QuizAdapter(context: Context, resource: Int, private var quizzes: Quizzes,
-                  private val topicId: Int) :
-    ArrayAdapter<Quizzes.Quiz>(context, resource, quizzes.getTopic(topicId).quizzes) {
+class TopicAdapter(context: Context, resource: Int, private var topics: Quizzes) :
+    ArrayAdapter<Quizzes.QuizTopic>(context, resource, topics.topics) {
     private var inflater: LayoutInflater? = null
     private var layout: Int = resource
 
@@ -27,13 +25,12 @@ class QuizAdapter(context: Context, resource: Int, private var quizzes: Quizzes,
         val name = view.findViewById(R.id.name) as TextView
         val percent = view.findViewById(R.id.percent) as TextView
 
-        val quiz = quizzes.getTopic(topicId).quizzes[index]
+        val topic = topics.getTopic(index)
 
-        name.text = quiz.name
+        name.text = topic.name
 
         val str = StringBuilder()
-        str.append((quiz.solved.toFloat() /quiz.questions.size*100)
-            .roundToInt().toString()).append("%")
+        str.append(topics.getTopicProgress(index).toString()).append("%")
         percent.text = str.toString()
 
         return view
