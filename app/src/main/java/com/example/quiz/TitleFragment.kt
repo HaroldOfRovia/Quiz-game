@@ -23,16 +23,26 @@ class TitleFragment : Fragment() {
         val quizzes = Quizzes()
         val listView: ListView = binding.topicList
 
+
         binding.globalProgress.append(quizzes.getGlobalProgress().toString())
         binding.globalProgress.append("%")
 
         val topicAdapter = TopicAdapter(requireContext(), R.layout.list_item, quizzes)
         listView.adapter = topicAdapter
-        val itemListener = OnItemClickListener { parent, view, position, id ->
+        val itemListener = OnItemClickListener { _, _, topicPosition, _ ->
             itsTopic = !itsTopic
-            val quizAdapter = QuizAdapter(requireContext(), R.layout.list_item, quizzes, position)
+            val quizAdapter = QuizAdapter(requireContext(), R.layout.list_item,
+                quizzes, topicPosition)
             listView.adapter = quizAdapter
-            listView.onItemClickListener = null
+
+            val quizListener = OnItemClickListener { _, _, quizPosition, _ ->
+                val bundle = Bundle()
+                bundle.putInt("topicID", topicPosition)
+                bundle.putInt("quizID", quizPosition)
+                findNavController().navigate(R.id.action_titleFragment_to_gameFragment, bundle)
+            }
+            listView.onItemClickListener = quizListener
+
             binding.globalProgress.visibility = View.INVISIBLE
 
 
@@ -41,7 +51,7 @@ class TitleFragment : Fragment() {
                     findNavController().navigate(R.id.action_titleFragment_self)
                 }
             }
-            requireActivity().onBackPressedDispatcher.addCallback(callback)
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         }
         listView.onItemClickListener = itemListener
 

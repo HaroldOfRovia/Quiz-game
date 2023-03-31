@@ -11,7 +11,7 @@ import java.lang.StringBuilder
 
 
 class TopicAdapter(context: Context, resource: Int, private var topics: Quizzes) :
-    ArrayAdapter<Quizzes.QuizTopic>(context, resource, topics.topics) {
+    ArrayAdapter<Quizzes.QuizTopic>(context, resource, Quizzes.topics) {
     private var inflater: LayoutInflater? = null
     private var layout: Int = resource
 

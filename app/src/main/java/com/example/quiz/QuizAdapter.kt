@@ -11,8 +11,10 @@ import java.lang.StringBuilder
 import kotlin.math.roundToInt
 
 
-class QuizAdapter(context: Context, resource: Int, private var quizzes: Quizzes,
-                  private val topicId: Int) :
+class QuizAdapter(
+    context: Context, resource: Int, private var quizzes: Quizzes,
+    private val topicId: Int
+) :
     ArrayAdapter<Quizzes.Quiz>(context, resource, quizzes.getTopic(topicId).quizzes) {
     private var inflater: LayoutInflater? = null
     private var layout: Int = resource
@@ -32,8 +34,10 @@ class QuizAdapter(context: Context, resource: Int, private var quizzes: Quizzes,
         name.text = quiz.name
 
         val str = StringBuilder()
-        str.append((quiz.solved.toFloat() /quiz.questions.size*100)
-            .roundToInt().toString()).append("%")
+        str.append(
+            (quiz.getCountSolved() / quiz.questions.size * 100)
+                .roundToInt().toString()
+        ).append("%")
         percent.text = str.toString()
 
         return view
