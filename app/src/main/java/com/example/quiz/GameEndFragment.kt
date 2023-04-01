@@ -16,10 +16,11 @@ class GameEndFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding: FragmentGameEndBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_game_end, container, false)
+            inflater, R.layout.fragment_game_end, container, false
+        )
         if (!requireArguments().getBoolean("win"))
             binding.result.text = "Вы проиграли!"
-        binding.btnBack.setOnClickListener{
+        binding.btnBack.setOnClickListener {
             findNavController().navigate(R.id.action_gameEndFragment_to_titleFragment)
         }
         return binding.root

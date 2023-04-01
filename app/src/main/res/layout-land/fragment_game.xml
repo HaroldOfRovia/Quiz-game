@@ -17,22 +17,21 @@
                 style="@style/header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="120dp"
+                android:layout_marginStart="112dp"
+                android:layout_marginTop="80dp"
                 android:text="Вопрос:"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/question"
-                android:layout_width="fill_parent"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:paddingStart="25dp"
                 android:paddingEnd="25dp"
                 android:text="Текст вопроса"
                 android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/quiz_name" />
 
@@ -40,23 +39,23 @@
                 android:id="@+id/answerBtn1"
                 android:layout_width="145dp"
                 android:layout_height="80dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginBottom="100dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="40dp"
                 android:text="Button"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toStartOf="@+id/answerBtn4" />
 
             <Button
                 android:id="@+id/answerBtn2"
                 android:layout_width="145dp"
                 android:layout_height="80dp"
-                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
                 android:layout_marginBottom="40dp"
                 android:text="Button"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/answerBtn1"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toStartOf="@+id/answerBtn3" />
 
             <Button
                 android:id="@+id/answerBtn3"
@@ -74,12 +73,11 @@
                 android:layout_width="145dp"
                 android:layout_height="80dp"
                 android:layout_marginEnd="40dp"
-                android:layout_marginBottom="100dp"
+                android:layout_marginBottom="40dp"
                 android:text="Button"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </FrameLayout>
 </layout>

@@ -21,7 +21,8 @@ class GameFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding: FragmentGameBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_game, container, false)
+            inflater, R.layout.fragment_game, container, false
+        )
 
 
         val topicID = requireArguments().getInt("topicID")
@@ -34,26 +35,30 @@ class GameFragment : Fragment() {
         binding.quizName.text = quiz.name
         if (questionIndex < numberQuestion)
             binding.question.text = questions[questionIndex].text
-        val answerButtons = listOf(binding.answerBtn1,
-            binding.answerBtn2, binding.answerBtn3, binding.answerBtn4,)
+        val answerButtons = listOf(
+            binding.answerBtn1,
+            binding.answerBtn2, binding.answerBtn3, binding.answerBtn4,
+        )
 
         setQuestion(answerButtons)
-        answerButtons.forEach{ btn ->
-            btn.setOnClickListener{
+        answerButtons.forEach { btn ->
+            btn.setOnClickListener {
                 if (btn.text == questions[questionIndex].answers[0] && questionIndex < numberQuestion) {
                     questions[questionIndex].solved = true
                     questionIndex++
                     binding.question.text = questions[questionIndex].text
                     setQuestion(answerButtons)
-                    binding.invalidateAll()
-                }
-                else {
+                } else {
                     val bundle = Bundle()
-                    if (questionIndex >= numberQuestion)
+                    if (questionIndex >= numberQuestion) {
                         bundle.putBoolean("win", true)
-                    else
+                        questions[questionIndex].solved = true
+                    } else
                         bundle.putBoolean("win", false)
-                    findNavController().navigate(R.id.action_gameFragment_to_gameEndFragment, bundle)
+                    findNavController().navigate(
+                        R.id.action_gameFragment_to_gameEndFragment,
+                        bundle
+                    )
                 }
             }
         }
@@ -63,9 +68,9 @@ class GameFragment : Fragment() {
     }
 
     private fun setQuestion(answerButtons: List<Button>) {
-        val answers : MutableList<String> = questions[questionIndex].answers.toMutableList()
+        val answers: MutableList<String> = questions[questionIndex].answers.toMutableList()
         answers.shuffle()
-        for(i in 0 until answers.size){
+        for (i in 0 until answers.size) {
             answerButtons[i].text = answers[i]
         }
     }

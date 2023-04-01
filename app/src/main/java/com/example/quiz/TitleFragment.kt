@@ -14,11 +14,14 @@ import com.example.quiz.databinding.FragmentTitleBinding
 
 
 class TitleFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?, savedInstanceState: Bundle?)  : View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
 
         val binding: FragmentTitleBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_title, container, false)
+            inflater, R.layout.fragment_title, container, false
+        )
         var itsTopic = true
         val quizzes = Quizzes()
         val listView: ListView = binding.topicList
@@ -31,8 +34,10 @@ class TitleFragment : Fragment() {
         listView.adapter = topicAdapter
         val itemListener = OnItemClickListener { _, _, topicPosition, _ ->
             itsTopic = !itsTopic
-            val quizAdapter = QuizAdapter(requireContext(), R.layout.list_item,
-                quizzes, topicPosition)
+            val quizAdapter = QuizAdapter(
+                requireContext(), R.layout.list_item,
+                quizzes, topicPosition
+            )
             listView.adapter = quizAdapter
 
             val quizListener = OnItemClickListener { _, _, quizPosition, _ ->
@@ -46,7 +51,7 @@ class TitleFragment : Fragment() {
             binding.globalProgress.visibility = View.INVISIBLE
 
 
-            val callback = object : OnBackPressedCallback(true){
+            val callback = object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     findNavController().navigate(R.id.action_titleFragment_self)
                 }
