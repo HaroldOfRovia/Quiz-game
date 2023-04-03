@@ -1,4 +1,4 @@
-package com.example.quiz
+package com.example.quiz.model
 
 import kotlin.math.roundToInt
 
@@ -35,7 +35,7 @@ class Quizzes {
                 "Тестовые", listOf(
                     Quiz(
                         "Тестовый 1", listOf(
-                            Question("0?", false, listOf("0", "111", "222", "333")),
+                            Question("Сколько будет 1+1?", false, listOf("2", "111", "222", "333")),
                             Question("1?", false, listOf("1", "111", "222", "333")),
                             Question("2?", false, listOf("2", "111", "222", "333")),
                             Question("3?", false, listOf("3", "111", "222", "333")),
@@ -96,36 +96,32 @@ class Quizzes {
                 )
             )
         )
-    }
 
-    fun getTopic(index: Int): QuizTopic {
-        return topics[index]
-    }
-
-    fun getTopicProgress(index: Int): Int {
-        var solved = 0F
-        var questionCount = 0F
-        topics[index].quizzes.forEach { quiz ->
-            questionCount += quiz.questions.size
-            solved += quiz.getCountSolved()
-        }
-        return (solved / questionCount * 100).roundToInt()
-    }
-
-    fun getGlobalProgress(): Int {
-        var solved = 0F
-        var questionCount = 0F
-        topics.forEach { topic ->
-            topic.quizzes.forEach { quiz ->
+        fun getTopicProgress(index: Int): Int {
+            var solved = 0F
+            var questionCount = 0F
+            topics[index].quizzes.forEach { quiz ->
                 questionCount += quiz.questions.size
                 solved += quiz.getCountSolved()
-
             }
+            return (solved / questionCount * 100).roundToInt()
         }
-        return (solved / questionCount * 100).roundToInt()
-    }
 
-    fun getQuiz(topicIndex: Int, quizIndex: Int): Quiz {
-        return topics[topicIndex].quizzes[quizIndex]
+        fun getGlobalProgress(): Int {
+            var solved = 0F
+            var questionCount = 0F
+            topics.forEach { topic ->
+                topic.quizzes.forEach { quiz ->
+                    questionCount += quiz.questions.size
+                    solved += quiz.getCountSolved()
+
+                }
+            }
+            return (solved / questionCount * 100).roundToInt()
+        }
+
+        fun getQuiz(topicIndex: Int, quizIndex: Int): Quiz {
+            return topics[topicIndex].quizzes[quizIndex]
+        }
     }
 }

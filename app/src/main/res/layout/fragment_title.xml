@@ -15,20 +15,20 @@
 
             <TextView
                 android:id="@+id/app_name"
+                style="@style/header"
                 android:layout_marginTop="40dp"
-                android:text="Викторины"
+                android:text="@string/quizzes"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                style="@style/header" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/topic_title"
-                android:text="Выберите тему:"
+                style="@style/questionText"
+                android:text="@string/pick_topic"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/app_name"
-                style="@style/questionText" />
+                app:layout_constraintTop_toBottomOf="@+id/app_name" />
 
             <ListView
                 android:id="@+id/topic_list"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginBottom="25dp"
-                android:text="Всего пройдено: "
+                android:text="@string/global_progress"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

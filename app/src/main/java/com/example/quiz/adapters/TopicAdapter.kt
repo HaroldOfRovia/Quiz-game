@@ -1,4 +1,4 @@
-package com.example.quiz
+package com.example.quiz.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import com.example.quiz.model.Quizzes
+import com.example.quiz.R
 import java.lang.StringBuilder
 
 
-class TopicAdapter(context: Context, resource: Int, private var topics: Quizzes) :
+class TopicAdapter(context: Context, resource: Int) :
     ArrayAdapter<Quizzes.QuizTopic>(context, resource, Quizzes.topics) {
     private var inflater: LayoutInflater? = null
     private var layout: Int = resource
@@ -25,12 +27,10 @@ class TopicAdapter(context: Context, resource: Int, private var topics: Quizzes)
         val name = view.findViewById(R.id.name) as TextView
         val percent = view.findViewById(R.id.percent) as TextView
 
-        val topic = topics.getTopic(index)
-
-        name.text = topic.name
+        name.text = Quizzes.topics[index].name
 
         val str = StringBuilder()
-        str.append(topics.getTopicProgress(index).toString()).append("%")
+        str.append(Quizzes.getTopicProgress(index).toString()).append("%")
         percent.text = str.toString()
 
         return view

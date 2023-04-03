@@ -1,4 +1,4 @@
-package com.example.quiz
+package com.example.quiz.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,15 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import com.example.quiz.model.Quizzes
+import com.example.quiz.R
 import java.lang.StringBuilder
 import kotlin.math.roundToInt
 
 
 class QuizAdapter(
-    context: Context, resource: Int, private var quizzes: Quizzes,
-    private val topicId: Int
+    context: Context, resource: Int,
+    private val topicID: Int
 ) :
-    ArrayAdapter<Quizzes.Quiz>(context, resource, quizzes.getTopic(topicId).quizzes) {
+    ArrayAdapter<Quizzes.Quiz>(context, resource, Quizzes.topics[topicID].quizzes) {
     private var inflater: LayoutInflater? = null
     private var layout: Int = resource
 
@@ -24,12 +26,12 @@ class QuizAdapter(
     }
 
     @SuppressLint("ViewHolder")
-    override fun getView(index: Int, convertView: View?, parent: ViewGroup): View {
+    override fun getView(quizID: Int, convertView: View?, parent: ViewGroup): View {
         val view: View = inflater!!.inflate(this.layout, parent, false)
         val name = view.findViewById(R.id.name) as TextView
         val percent = view.findViewById(R.id.percent) as TextView
 
-        val quiz = quizzes.getTopic(topicId).quizzes[index]
+        val quiz = Quizzes.getQuiz(topicID, quizID)
 
         name.text = quiz.name
 

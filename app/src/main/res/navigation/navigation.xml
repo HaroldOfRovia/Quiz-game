@@ -16,12 +16,11 @@
         <action
             android:id="@+id/action_titleFragment_to_gameFragment"
             app:destination="@id/gameFragment"
-            app:popUpTo="@id/gameFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
-        android:name="com.example.quiz.GameFragment"
+        android:name="com.example.quiz.game.GameFragment"
         android:label="GameFragment" >
         <argument
             android:name="topicID"

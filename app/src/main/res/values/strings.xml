@@ -1,5 +1,10 @@
-<resources>
-    <string name="app_name">Quiz</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" tools:ignore="ExtraTranslation">Quiz</string>
+    <string name="quizzes">Quizzes</string>
+    <string name="pick_topic">Choose a topic:</string>
+    <string name="global_progress">Total completed: </string>
+    <string name="win_notice">You have won!</string>
+    <string name="lose_notice">You have lose!</string>
+    <string name="menu_btn">Menu</string>
+    <string name="question_header">Question:</string>
 </resources>
