@@ -19,7 +19,8 @@ class GameEndFragment : Fragment() {
             inflater, R.layout.fragment_game_end, container, false
         )
         if (!requireArguments().getBoolean("win"))
-            binding.result.text = R.string.lose_notice.toString()
+            binding.result.text = getString(R.string.lose_notice)
+        println(R.string.lose_notice)
         binding.btnBack.setOnClickListener {
             findNavController().navigate(R.id.action_gameEndFragment_to_titleFragment)
         }

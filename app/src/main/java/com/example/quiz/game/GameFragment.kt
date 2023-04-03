@@ -16,6 +16,7 @@ import com.example.quiz.databinding.FragmentGameBinding
 class GameFragment : Fragment() {
 
     private lateinit var viewModel: GameViewModel
+    private lateinit var viewModelFactory: GameViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,9 +26,11 @@ class GameFragment : Fragment() {
             inflater, R.layout.fragment_game, container, false
         )
 
-        viewModel = ViewModelProvider(this)[GameViewModel::class.java]
-        viewModel.topicID = requireArguments().getInt("topicID")
-        viewModel.quizID = requireArguments().getInt("quizID")
+        viewModelFactory = GameViewModelFactory(
+            requireArguments().getInt("topicID"),
+            requireArguments().getInt("quizID")
+        )
+        viewModel = ViewModelProvider(this, viewModelFactory)[GameViewModel::class.java]
         viewModel.getShuffledList()
 
         binding.quizName.text = viewModel.getQuizName()
@@ -64,7 +67,7 @@ class GameFragment : Fragment() {
 
 
     private fun setQuestion(answerButtons: List<Button>) {
-        val answers : MutableList<String> = viewModel.getShuffledAnswers()
+        val answers: MutableList<String> = viewModel.getShuffledAnswers()
         for (i in 0 until answers.size) {
             answerButtons[i].text = answers[i]
         }

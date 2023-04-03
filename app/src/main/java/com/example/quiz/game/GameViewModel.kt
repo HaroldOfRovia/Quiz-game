@@ -3,10 +3,8 @@ package com.example.quiz.game
 import androidx.lifecycle.ViewModel
 import com.example.quiz.model.Quizzes
 
-class GameViewModel : ViewModel() {
+class GameViewModel(private val topicID: Int, private val quizID: Int) : ViewModel() {
 
-    var topicID: Int = 0
-    var quizID: Int = 0
     private lateinit var quiz: Quizzes.Quiz
     private lateinit var questions: MutableList<Quizzes.Question>
     private var numberQuestion = 0
@@ -27,7 +25,7 @@ class GameViewModel : ViewModel() {
         return quiz.name
     }
 
-    fun getQuestionText() : String {
+    fun getQuestionText(): String {
         return questions[questionIndex].text
     }
 
@@ -37,11 +35,11 @@ class GameViewModel : ViewModel() {
         return answers
     }
 
-    fun getAnswer() : String {
+    fun getAnswer(): String {
         return questions[questionIndex].answers[0]
     }
 
-    fun allQuestionIsSolved() : Boolean {
+    fun allQuestionIsSolved(): Boolean {
         return questionIndex >= numberQuestion
     }
 
