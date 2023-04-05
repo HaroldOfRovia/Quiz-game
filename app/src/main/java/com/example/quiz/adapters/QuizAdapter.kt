@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.lifecycle.LifecycleOwner
 import com.example.quiz.Quizzes
 import com.example.quiz.R
 import java.lang.StringBuilder
@@ -15,13 +16,16 @@ import kotlin.math.roundToInt
 
 class QuizAdapter(
     context: Context, resource: Int,
-    private val topicID: Int
+    private val topicID: Int,
+    viewLifecycleOwner: LifecycleOwner
 ) :
     ArrayAdapter<Quizzes.Quiz>(context, resource, Quizzes.topics[topicID].quizzes) {
     private var inflater: LayoutInflater? = null
     private var layout: Int = resource
+    private var viewLifecycleOwner : LifecycleOwner
 
     init {
+        this.viewLifecycleOwner = viewLifecycleOwner
         this.inflater = LayoutInflater.from(context)
     }
 
@@ -31,16 +35,13 @@ class QuizAdapter(
         val name = view.findViewById(R.id.name) as TextView
         val percent = view.findViewById(R.id.percent) as TextView
 
-        val quiz = Quizzes.getQuiz(topicID, quizID)
+        val quiz = Quizzes.topics[topicID].quizzes[quizID]
 
         name.text = quiz.name
 
-        val str = StringBuilder()
-        str.append(
-            (quiz.getCountSolved() / quiz.questions.size * 100)
-                .roundToInt().toString()
-        ).append("%")
-        percent.text = str.toString()
+        Quizzes.topics[topicID].quizzes[quizID].progress.observe(viewLifecycleOwner) { progress ->
+            percent.text = progress
+        }
 
         return view
     }

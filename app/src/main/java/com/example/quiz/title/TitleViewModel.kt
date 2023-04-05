@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import com.example.quiz.Quizzes
 import com.example.quiz.database.QuestionProgress
 import com.example.quiz.database.QuestionProgressDao
-import com.example.quiz.databinding.FragmentTitleBinding
 import kotlinx.coroutines.*
 
 class TitleViewModel(private val dao: QuestionProgressDao?, application: Application) :
@@ -30,6 +29,9 @@ class TitleViewModel(private val dao: QuestionProgressDao?, application: Applica
                         it.solved
                 }
             }
+            Quizzes.setTopicProgress()
+            Quizzes.setQuizProgress()
+            Quizzes.setGlobalProgress()
         }
     }
 

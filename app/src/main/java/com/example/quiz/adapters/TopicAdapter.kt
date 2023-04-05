@@ -7,17 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import com.example.quiz.Quizzes
 import com.example.quiz.R
 import java.lang.StringBuilder
 
 
-class TopicAdapter(context: Context, resource: Int) :
+class TopicAdapter(context: Context, resource: Int, viewLifecycleOwner: LifecycleOwner) :
     ArrayAdapter<Quizzes.QuizTopic>(context, resource, Quizzes.topics) {
     private var inflater: LayoutInflater? = null
     private var layout: Int = resource
+    private var viewLifecycleOwner : LifecycleOwner
 
     init {
+        this.viewLifecycleOwner = viewLifecycleOwner
         this.inflater = LayoutInflater.from(context)
     }
 
@@ -29,9 +35,9 @@ class TopicAdapter(context: Context, resource: Int) :
 
         name.text = Quizzes.topics[index].name
 
-        val str = StringBuilder()
-        str.append(Quizzes.getTopicProgress(index).toString()).append("%")
-        percent.text = str.toString()
+        Quizzes.topics[index].progress.observe(viewLifecycleOwner) { progress ->
+            percent.text = progress
+        }
 
         return view
     }

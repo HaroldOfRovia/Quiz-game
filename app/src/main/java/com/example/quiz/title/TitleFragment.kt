@@ -9,6 +9,7 @@ import android.widget.ListView
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.quiz.Quizzes
@@ -39,14 +40,16 @@ class TitleFragment : Fragment() {
 
         val listView: ListView = binding.topicList
 
-        binding.globalProgress.append(" " + Quizzes.getGlobalProgress().toString() + "%")
+        Quizzes.globalProgress.observe(viewLifecycleOwner) { progress ->
+            binding.globalProgress.text = getString(R.string.global_progress) + " " + progress
+        }
 
-        val topicAdapter = TopicAdapter(requireContext(), R.layout.list_item)
+        val topicAdapter = TopicAdapter(requireContext(), R.layout.list_item, viewLifecycleOwner)
         listView.adapter = topicAdapter
 
         val itemListener = OnItemClickListener { _, _, topicPosition, _ ->
             val quizAdapter = QuizAdapter(
-                requireContext(), R.layout.list_item, topicPosition
+                requireContext(), R.layout.list_item, topicPosition, viewLifecycleOwner
             )
             listView.adapter = quizAdapter
 
@@ -68,7 +71,7 @@ class TitleFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         }
         listView.onItemClickListener = itemListener
-        
+
         return binding.root
     }
 }
