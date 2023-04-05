@@ -1,7 +1,7 @@
 package com.example.quiz.game
 
 import androidx.lifecycle.ViewModel
-import com.example.quiz.model.Quizzes
+import com.example.quiz.Quizzes
 
 class GameViewModel(private val topicID: Int, private val quizID: Int) : ViewModel() {
 

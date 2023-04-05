@@ -1,4 +1,4 @@
-package com.example.quiz
+package com.example.quiz.title
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,14 +9,20 @@ import android.widget.ListView
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.quiz.Quizzes
+import com.example.quiz.R
 import com.example.quiz.adapters.QuizAdapter
 import com.example.quiz.adapters.TopicAdapter
+import com.example.quiz.database.ProgressDatabase
 import com.example.quiz.databinding.FragmentTitleBinding
-import com.example.quiz.model.Quizzes
 
 
 class TitleFragment : Fragment() {
+
+    private lateinit var viewModel: TitleViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?, savedInstanceState: Bundle?
@@ -25,6 +31,12 @@ class TitleFragment : Fragment() {
         val binding: FragmentTitleBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_title, container, false
         )
+
+        val application = requireActivity().application
+        val dao = ProgressDatabase.getInstance(application)?.getQuestionProgressDao()
+        val viewModelFactory = TitleModelFactory(dao, application)
+        viewModel = ViewModelProvider(this, viewModelFactory)[TitleViewModel::class.java]
+
         val listView: ListView = binding.topicList
 
         binding.globalProgress.append(" " + Quizzes.getGlobalProgress().toString() + "%")
@@ -56,7 +68,7 @@ class TitleFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         }
         listView.onItemClickListener = itemListener
-
+        
         return binding.root
     }
 }

@@ -6,7 +6,7 @@
     app:startDestination="@id/titleFragment">
     <fragment
         android:id="@+id/titleFragment"
-        android:name="com.example.quiz.TitleFragment"
+        android:name="com.example.quiz.title.TitleFragment"
         android:label="TitleFragment" >
         <action
             android:id="@+id/action_titleFragment_self"
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameEndFragment"
-        android:name="com.example.quiz.GameEndFragment"
+        android:name="com.example.quiz.end.GameEndFragment"
         android:label="fragment_game_end"
         tools:layout="@layout/fragment_game_end">
         <action
